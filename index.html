@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Secret Flower Garden</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+
+:root {
+    --pink: #d49aaf;
+    --dark: #80586e;
+    --soft: #fff5f7;
+    --muted: #a38a97;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--dark);
+    background:
+        radial-gradient(ellipse at 10% 10%, #f5dce5, transparent 40%),
+        radial-gradient(ellipse at 90% 90%, #eadcf0, transparent 40%),
+        #fffaf8;
+    overflow-x: hidden;
+}
+
+/* BACKGROUND */
+
+.petal {
+    position: fixed;
+    top: -30px;
+    z-index: 0;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(600deg);
+        opacity: 0;
+    }
+}
+
+.decoration {
+    position: fixed;
+    font-size: 65px;
+    opacity: .17;
+    pointer-events: none;
+    animation: sway 5s infinite ease-in-out;
+}
+
+.d1 { top: 5%; left: 3%; }
+.d2 { top: 7%; right: 4%; }
+.d3 { bottom: 5%; left: 4%; }
+.d4 { bottom: 4%; right: 3%; }
+
+@keyframes sway {
+    50% { transform: translateY(-15px) rotate(10deg); }
+}
+
+/* HEADER */
+
+header {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #aa8799;
+}
+
+.brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    letter-spacing: 0;
+    color: var(--dark);
+}
+
+/* PAGE SYSTEM */
+
+.page {
+    display: none;
+    min-height: 82vh;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.page.active {
+    display: flex;
+    animation: appear .7s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* MAIN CARD */
+
+.card {
+    width: 100%;
+    max-width: 760px;
+    padding: 55px 45px;
+    background: rgba(255,255,255,.83);
+    border: 1px solid white;
+    border-radius: 28px;
+    text-align: center;
+    box-shadow: 0 20px 65px rgba(150,100,125,.13);
+    backdrop-filter: blur(15px);
+}
+
+.eyebrow {
+    color: #bd8da1;
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-bottom: 22px;
+}
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+h1 {
+    font-size: clamp(38px, 7vw, 60px);
+    line-height: 1.2;
+}
+
+h1 em {
+    color: #ce8da6;
+    font-weight: 500;
+}
+
+h2 {
+    font-size: 30px;
+    margin: 15px 0;
+}
+
+.script {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #c38da3;
+    margin: 15px 0;
+    font-size: 17px;
+}
+
+.intro {
+    max-width: 500px;
+    margin: 22px auto;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 2;
+}
+
+/* FLOWERS */
+
+.flower-garden {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.flower {
+    font-size: 65px;
+    filter: drop-shadow(0 8px 8px #e9cad6);
+    animation: float 4s infinite ease-in-out;
+}
+
+.flower:nth-child(2) { animation-delay: .7s; }
+.flower:nth-child(3) { animation-delay: 1.4s; }
+
+@keyframes float {
+    50% { transform: translateY(-12px) rotate(5deg); }
+}
+
+/* BUTTONS */
+
+button, a {
+    font-family: inherit;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(120deg, #d69bb0, #bd91bd);
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 0 8px 20px #e9cfda;
+    transition: .3s;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px #dfbdcd;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 35px;
+    gap: 15px;
+}
+
+.back-btn {
+    background: transparent;
+    border: none;
+    color: #aa8195;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* LETTER */
+
+.envelope {
+    font-size: 75px;
+    margin: 20px;
+}
+
+.letter {
+    background: #fff8fa;
+    border: 1px solid #f1dfe6;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: left;
+    line-height: 2;
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: #866d7b;
+    margin: 25px auto;
+    max-width: 560px;
+}
+
+.letter p {
+    margin-bottom: 13px;
+}
+
+.letter strong {
+    color: #c17f9a;
+}
+
+.signature {
+    text-align: right;
+    color: #c38da3;
+    font-style: italic;
+}
+
+/* REMINDERS */
+
+.reminders {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 13px;
+    max-width: 550px;
+    margin: 25px auto;
+    text-align: left;
+}
+
+.reminder {
+    padding: 20px;
+    background: #fff8fa;
+    border: 1px solid #f1e1e7;
+    border-radius: 15px;
+}
+
+.reminder span {
+    color: #c58da3;
+    font-size: 11px;
+}
+
+.reminder h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    margin: 8px 0;
+}
+
+.reminder p {
+    color: #a08b96;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* SUPPORT */
+
+.quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 25px;
+    font-style: italic;
+    line-height: 1.7;
+    color: #a8758d;
+    margin: 30px auto;
+    max-width: 550px;
+}
+
+.support-text {
+    color: #947d8a;
+    line-height: 2;
+    font-size: 13px;
+}
+
+/* SURPRISE */
+
+.gift {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    margin: 25px;
+    transition: .4s;
+}
+
+.gift:hover {
+    transform: scale(1.12) rotate(-5deg);
+}
+
+.gift span {
+    display: block;
+    font-size: 95px;
+}
+
+.gift small {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #b9849a;
+}
+
+.secret {
+    display: none;
+    padding: 25px;
+    background: #fff7f9;
+    border: 1px solid #f1dfe6;
+    border-radius: 18px;
+    margin: 20px auto;
+    max-width: 500px;
+    animation: appear .8s ease;
+}
+
+.secret.show {
+    display: block;
+}
+
+.secret .rose {
+    font-size: 55px;
+}
+
+.secret p {
+    line-height: 2;
+    color: #927b88;
+    font-size: 14px;
+    margin: 15px 0;
+}
+
+/* FOOTER */
+
+footer {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #b99cab;
+    font-size: 10px;
+    letter-spacing: 3px;
+    padding: 20px;
+}
+
+/* MOBILE */
+
+@media(max-width: 600px) {
+    .card {
+        padding: 40px 20px;
+    }
+
+    .flower {
+        font-size: 48px;
+    }
+
+    .flower-garden {
+        gap: 8px;
+    }
+
+    .reminders {
+        gap: 8px;
+    }
+
+    .reminder {
+        padding: 13px;
+    }
+
+    .reminder h3 {
+        font-size: 16px;
+    }
+
+    .letter {
+        font-size: 13px;
+        padding: 18px;
+    }
+
+    .quote {
+        font-size: 21px;
+    }
+
+    header {
+        padding: 18px;
+        font-size: 9px;
+    }
+}
+
+/* KEYWORD QUESTION */
+.keyword-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    max-width: 500px;
+    margin: 25px auto;
+}
+
+.keyword-option {
+    padding: 15px;
+    border: 1px solid #efd9e3;
+    border-radius: 14px;
+    background: #fff8fa;
+    color: #80586e;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    transition: .3s;
+}
+
+.keyword-option:hover {
+    background: #f8e8ef;
+    transform: translateY(-3px);
+}
+
+.keyword-feedback {
+    min-height: 28px;
+    margin: 15px 0;
+    color: #bd7895;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+@media(max-width: 600px) {
+    .keyword-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="decoration d1">🌸</div>
+<div class="decoration d2">🌷</div>
+<div class="decoration d3">🤍</div>
+<div class="decoration d4">🌹</div>
+
+<header>
+    <div class="brand">✿ A Little Place For You</div>
+    <div>MADE WITH LOVE ♡</div>
+</header>
+
+<!-- PAGE 1: HOME -->
+
+<section class="page active" id="home">
+    <div class="card">
+
+        <div class="eyebrow">A LITTLE GARDEN JUST FOR YOU</div>
+
+        <div class="flower-garden">
+            <span class="flower">🌸</span>
+            <span class="flower">🤍</span>
+            <span class="flower">🌹</span>
+        </div>
+
+        <p class="script">For the girl who deserves gentleness</p>
+
+        <h1>
+            Welcome To<br>
+            <em>Your Little Garden.</em>
+        </h1>
+
+        <p class="intro">
+            Aku bikin tempat kecil ini khusus buat kamu.
+            Kalau hari ini terasa berat, semoga halaman
+            ini bisa jadi tempat singgah sebentar.
+        </p>
+
+        <button class="btn" onclick="goTo('letter')">
+            ENTER MY GARDEN →
+        </button>
+
+        <p class="script">Take your time. There's no rush.</p>
+
+    </div>
+</section>
+
+<!-- PAGE 2: LETTER -->
+
+<section class="page" id="letter">
+    <div class="card">
+
+        <div class="eyebrow">CHAPTER 01 · A LETTER FOR YOU</div>
+
+        <div class="envelope">💌</div>
+
+        <p class="script">A letter from me, orang keren to you, orang imut</p>
+
+        <h1>Dear <em>You.</em></h1>
+
+        <div class="letter">
+
+            <p>Halo sayang, halo cantik, halo love.</p>
+
+            <p>
+                Aku nggak tahu persis semua hal yang lagi
+                kamu hadapi. Mungkin ada yang bikin kamu
+                capek, kecewa, bingung, atau ngerasa
+                semuanya datang bersamaan.
+            </p>
+
+            <p>
+                Aku cuma mau kamu tahu kalau kamu nggak
+                harus selalu terlihat baik-baik saja
+                di depan aku.
+            </p>
+
+            <p>
+                Kamu boleh cerita, boleh nangis,
+                boleh diam dulu.
+            </p>
+
+            <p>
+                <strong>
+                    Aku di sini. Bukan cuma saat semuanya
+                    mudah, tapi juga saat kamu lagi kesulitan.
+                </strong>
+            </p>
+
+            <p class="signature">From : Your Future, Orang keren  ♡</p>
+
+        </div>
+
+        <div class="nav">
+            <button class="back-btn" onclick="goTo('home')">← Back</button>
+            <button class="btn" onclick="goTo('special')">NEXT PAGE →</button>
+        </div>
+
+    </div>
+</section>
+
+<!-- PAGE 3: SPECIAL -->
+
+<section class="page" id="special">
+    <div class="card">
+
+        <div class="eyebrow">CHAPTER 02 · A LITTLE REMINDER</div>
+
+        <div class="flower" style="font-size:75px">🌷</div>
+
+        <p class="script">Please don't forget this</p>
+
+        <h1>You Are <em>Precious.</em></h1>
+
+        <p class="intro">
+            Ada beberapa hal yang ingin aku ingatkan,
+            terutama ketika kamu lupa betapa berharganya
+            diri kamu sendiri.
+        </p>
+
+        <div class="reminders">
+
+            <div class="reminder">
+                <span>01</span>
+                <h3>You Are Enough.</h3>
+                <p>Kamu uda sangat sempurna lahh dimata aku la sayang.</p>
+            </div>
+
+            <div class="reminder">
+                <span>02</span>
+                <h3>Rest Is Okay.</h3>
+                <p>Istirahat bukan berarti menyerah.</p>
+            </div>
+
+            <div class="reminder">
+                <span>03</span>
+                <h3>One Step At A Time.</h3>
+                <p>Nggak harus menyelesaikan semuanya hari ini.</p>
+            </div>
+
+            <div class="reminder">
+                <span>04</span>
+                <h3>I'm Proud Of You.</h3>
+                <p>Aku bangga sama setiap usaha kamu.</p>
+            </div>
+
+        </div>
+
+        <div class="nav">
+            <button class="back-btn" onclick="goTo('letter')">← Previous</button>
+            <button class="btn" onclick="goTo('support')">NEXT PAGE →</button>
+        </div>
+
+    </div>
+</section>
+
+<!-- PAGE 4: SUPPORT -->
+
+<section class="page" id="support">
+    <div class="card">
+
+        <div class="eyebrow">CHAPTER 03 · YOU CAN LEAN ON ME</div>
+
+        <div class="flower-garden">
+            <span class="flower">🌸</span>
+            <span class="flower">🤍</span>
+            <span class="flower">🌹</span>
+        </div>
+
+        <p class="script">You don't have to do it all alone, andelin akuu</p>
+
+        <h1>Lean On <em>Me.</em></h1>
+
+        <p class="quote">
+            "Aku mungkin nggak selalu punya jawaban,
+            tapi aku mau selalu berusaha jadi seseorang
+            yang bisa kamu datangi sayangg."
+        </p>
+
+        <div class="support-text">
+
+            <p>Kalau kamu mau cerita, aku akan dengerin.</p>
+
+            <p>Kalau kamu butuh ditemani, aku akan berusaha ada.</p>
+
+            <p>Kalau kamu butuh waktu sendiri, aku akan menghargainya.</p>
+
+            <br>
+
+            <p>
+                Aku nggak mau memaksa kamu untuk selalu kuat.
+                Aku cuma mau kamu tahu, kamu nggak harus
+                menghadapi semuanya sendirian. Kamu bisa ngandelin aku sayang
+                okey my love?
+            </p>
+
+        </div>
+
+        <div class="nav">
+            <button class="back-btn" onclick="goTo('special')">← Previous</button>
+            <button class="btn" onclick="goTo('keyword')">ONE LAST THING →</button>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- PAGE 5: KEYWORD -->
+
+<section class="page" id="keyword">
+    <div class="card">
+
+        <div class="eyebrow">A LITTLE QUESTION · BEFORE YOUR GIFT</div>
+
+        <div class="flower" style="font-size:75px">🌸</div>
+
+        <p class="script">Hmm, sebelum buka hadiah kamu harus jawab ini duluu</p>
+
+        <h1>What's The <em>Keyword?</em></h1>
+
+        <p class="intro">
+            Pertanyaannya adalah:<br>
+            <strong>Beli tang didepan kargo, tarantula dan kentang</strong>
+        </p>
+
+        <div class="keyword-options">
+            <button class="keyword-option" onclick="checkKeyword(1)">Opsi 1 · hahh</button>
+            <button class="keyword-option" onclick="checkKeyword(2)">Opsi 2 · gasss</button>
+            <button class="keyword-option" onclick="checkKeyword(3)">Opsi 3 · letsgooo</button>
+            <button class="keyword-option" onclick="checkKeyword(4)">Opsi 4 · lah ayoo</button>
+        </div>
+
+        <p class="keyword-feedback" id="keywordFeedback"></p>
+
+        <div class="nav">
+            <button class="back-btn" onclick="goTo('support')">← Previous</button>
+        </div>
+
+    </div>
+</section>
+
+<!-- PAGE 5: SURPRISE -->
+
+<section class="page" id="surprise">
+    <div class="card">
+
+        <div class="eyebrow">A LITTLE SURPRISE · JUST FOR YOU</div>
+
+        <p class="script">There's something waiting for you</p>
+
+        <h1>One More <em>Thing.</em></h1>
+
+        <p class="intro">
+            Aku simpan satu pesan kecil di dalam kotak ini nihh.
+            Coba buka lekkk.
+        </p>
+
+        <button class="gift" id="giftButton" onclick="openGift()">
+            <span>🎁</span>
+            <small>OPEN YOUR GIFT</small>
+        </button>
+
+        <div class="secret" id="secret">
+
+            <div class="rose">🌷</div>
+
+            <h2>For My Favorite Person.</h2>
+
+            <p>Kalau suatu hari kamu lupa, baca ini lagi:</p>
+
+            <p>
+                Kamu berarti.<br>
+                Kamu dicintai.<br>
+                Kamu nggak sendirian.
+            </p>
+
+            <p>
+                Aku nggak bisa menjanjikan semua hari
+                akan mudah, tapi aku mau terus belajar
+                memahami kamu, mendengarkan kamu,
+                dan berjalan di samping kamu.
+            </p>
+
+            <p>
+                Terima kasih sudah jadi kamu.
+                Aku sayang kamu. 🤍
+            </p>
+
+            <p class="script">From : Your Future, Orang keren  ♡</p>
+
+        </div>
+
+        <div class="nav">
+            <button class="back-btn" onclick="goTo('support')">← Previous</button>
+            <button class="back-btn" onclick="goTo('home')">BACK TO GARDEN ↗</button>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    LILY · ORCHID · PINK ROSES ♡
+</footer>
+
+<script>
+
+// PAGE NAVIGATION
+
+function goTo(pageId) {
+
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+
+    const selectedPage = document.getElementById(pageId);
+
+    selectedPage.classList.add('active');
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+
+}
+
+// KEYWORD CHECK
+
+function checkKeyword(option) {
+
+    const feedback = document.getElementById('keywordFeedback');
+
+    if (option === 3) {
+        feedback.innerText = 'YASHHH BENARRR!! Hadiahnya boleh dibuka sekarang 💗';
+        setTimeout(() => {
+            goTo('surprise');
+        }, 1000);
+    } else {
+        feedback.innerText = 'Eitsss, belum tepat nihh. Coba pikirin lagi yaa 🤭';
+    }
+
+}
+
+// SURPRISE
+
+function openGift() {
+
+    const secret = document.getElementById('secret');
+    const button = document.getElementById('giftButton');
+
+    secret.classList.add('show');
+
+    button.innerHTML = `
+        <span>💗</span>
+        <small>A LITTLE GIFT FOR YOU ♡</small>
+    `;
+
+    button.disabled = true;
+
+    createBurst();
+
+    setTimeout(() => {
+        secret.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    }, 200);
+
+}
+
+// FALLING FLOWERS
+
+const flowers = ['🌸', '🌷', '🌹', '🤍', '✿'];
+
+function createPetal() {
+
+    const petal = document.createElement('div');
+
+    petal.className = 'petal';
+
+    petal.innerText =
+        flowers[Math.floor(Math.random() * flowers.length)];
+
+    petal.style.left = Math.random() * 100 + 'vw';
+
+    petal.style.fontSize =
+        (12 + Math.random() * 17) + 'px';
+
+    petal.style.animationDuration =
+        (6 + Math.random() * 6) + 's';
+
+    document.body.appendChild(petal);
+
+    setTimeout(() => {
+        petal.remove();
+    }, 12000);
+
+}
+
+setInterval(createPetal, 850);
+
+// SURPRISE FLOWER BURST
+
+function createBurst() {
+
+    for (let i = 0; i < 25; i++) {
+
+        setTimeout(() => {
+
+            const flower = document.createElement('div');
+
+            flower.innerText =
+                flowers[Math.floor(Math.random() * flowers.length)];
+
+            flower.style.position = 'fixed';
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.top = '45vh';
+            flower.style.fontSize = '25px';
+            flower.style.zIndex = '99';
+            flower.style.pointerEvents = 'none';
+            flower.style.transition = '2s ease';
+
+            document.body.appendChild(flower);
+
+            requestAnimationFrame(() => {
+                flower.style.transform =
+                    `translateY(${Math.random() * 500 - 250}px) rotate(360deg)`;
+                flower.style.opacity = '0';
+            });
+
+            setTimeout(() => flower.remove(), 2200);
+
+        }, i * 50);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
