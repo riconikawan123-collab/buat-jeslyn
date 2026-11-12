@@ -121,13 +121,29 @@ header {
 .card {
     width: 100%;
     max-width: 760px;
-    padding: 55px 45px;
+    padding: 55px 45px 75px;
     background: rgba(255,255,255,.83);
     border: 1px solid white;
     border-radius: 28px;
     text-align: center;
     box-shadow: 0 20px 65px rgba(150,100,125,.13);
     backdrop-filter: blur(15px);
+    position: relative;
+}
+
+/* SIGNATURE DI POJOK KANAN SETIAP HALAMAN */
+
+.card::after {
+    content: "to : J.A cantik imut";
+    position: absolute;
+    right: 30px;
+    bottom: 22px;
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: #d66b91;
+    opacity: 0.9;
+    pointer-events: none;
 }
 
 .eyebrow {
@@ -376,6 +392,137 @@ button, a {
     margin: 15px 0;
 }
 
+/* KEYWORD QUESTION */
+
+.keyword-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    max-width: 500px;
+    margin: 25px auto;
+}
+
+.keyword-option {
+    padding: 15px;
+    border: 1px solid #efd9e3;
+    border-radius: 14px;
+    background: #fff8fa;
+    color: #80586e;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    transition: .3s;
+}
+
+.keyword-option:hover {
+    background: #f8e8ef;
+    transform: translateY(-3px);
+}
+
+.keyword-feedback {
+    min-height: 28px;
+    margin: 15px 0;
+    color: #bd7895;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* HEART REACTION */
+
+.heart-reaction {
+    display: none;
+    margin: 25px auto;
+    text-align: center;
+    animation: heartAppear .5s ease;
+}
+
+.heart-reaction.show {
+    display: block;
+}
+
+.heart-icon {
+    display: inline-block;
+    position: relative;
+    font-size: 85px;
+    transition: .4s;
+    filter: drop-shadow(0 5px 10px rgba(220, 80, 120, .2));
+}
+
+.heart-crack {
+    position: absolute;
+    display: none;
+    background: #80586e;
+    width: 3px;
+    border-radius: 5px;
+    transform: rotate(25deg);
+}
+
+.heart-crack.one {
+    display: block;
+    height: 25px;
+    top: 28px;
+    left: 48%;
+}
+
+.heart-crack.two {
+    display: block;
+    height: 40px;
+    top: 22px;
+    left: 48%;
+}
+
+.heart-crack.three {
+    display: block;
+    height: 20px;
+    top: 45px;
+    left: 55%;
+    transform: rotate(-35deg);
+}
+
+.heart-reaction.level-1 .heart-icon {
+    transform: rotate(-8deg) scale(.95);
+}
+
+.heart-reaction.level-2 .heart-icon {
+    transform: rotate(10deg) scale(.9);
+    filter: grayscale(.2);
+}
+
+.heart-reaction.level-3 .heart-icon {
+    transform: scale(1.15);
+    filter: grayscale(.7);
+    animation: brokenHeart .5s ease;
+}
+
+.heart-reaction.level-3 .heart-crack {
+    display: none;
+}
+
+.heart-message {
+    color: #bd7895;
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+@keyframes heartAppear {
+    from {
+        opacity: 0;
+        transform: scale(.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes brokenHeart {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.3) rotate(-15deg); }
+    50% { transform: scale(.9) rotate(15deg); }
+    100% { transform: scale(1.15); }
+}
+
 /* FOOTER */
 
 footer {
@@ -392,7 +539,13 @@ footer {
 
 @media(max-width: 600px) {
     .card {
-        padding: 40px 20px;
+        padding: 40px 20px 70px;
+    }
+
+    .card::after {
+        right: 18px;
+        bottom: 18px;
+        font-size: 11px;
     }
 
     .flower {
@@ -428,43 +581,7 @@ footer {
         padding: 18px;
         font-size: 9px;
     }
-}
 
-/* KEYWORD QUESTION */
-.keyword-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    max-width: 500px;
-    margin: 25px auto;
-}
-
-.keyword-option {
-    padding: 15px;
-    border: 1px solid #efd9e3;
-    border-radius: 14px;
-    background: #fff8fa;
-    color: #80586e;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 14px;
-    transition: .3s;
-}
-
-.keyword-option:hover {
-    background: #f8e8ef;
-    transform: translateY(-3px);
-}
-
-.keyword-feedback {
-    min-height: 28px;
-    margin: 15px 0;
-    color: #bd7895;
-    font-size: 13px;
-    line-height: 1.7;
-}
-
-@media(max-width: 600px) {
     .keyword-options {
         grid-template-columns: 1fr;
     }
@@ -679,7 +796,6 @@ footer {
     </div>
 </section>
 
-
 <!-- PAGE 5: KEYWORD -->
 
 <section class="page" id="keyword">
@@ -705,6 +821,18 @@ footer {
             <button class="keyword-option" onclick="checkKeyword(4)">Opsi 4 · lah ayoo</button>
         </div>
 
+        <!-- HEART REACTION -->
+
+        <div class="heart-reaction" id="heartReaction">
+
+            <div class="heart-icon" id="heartIcon">
+                ❤️
+            </div>
+
+            <p class="heart-message" id="heartMessage"></p>
+
+        </div>
+
         <p class="keyword-feedback" id="keywordFeedback"></p>
 
         <div class="nav">
@@ -714,7 +842,7 @@ footer {
     </div>
 </section>
 
-<!-- PAGE 5: SURPRISE -->
+<!-- PAGE 6: SURPRISE -->
 
 <section class="page" id="surprise">
     <div class="card">
@@ -798,21 +926,84 @@ function goTo(pageId) {
 
 }
 
-// KEYWORD CHECK
+// HEART DAMAGE SYSTEM
+
+let wrongAttempts = 0;
 
 function checkKeyword(option) {
 
     const feedback = document.getElementById('keywordFeedback');
+    const heartReaction = document.getElementById('heartReaction');
+    const heartIcon = document.getElementById('heartIcon');
+    const heartMessage = document.getElementById('heartMessage');
 
     if (option === 3) {
-        feedback.innerText = 'YASHHH BENARRR!! Hadiahnya boleh dibuka sekarang 💗';
+
+        feedback.innerText =
+            'YASHHH BENARRR!! Hadiahnya boleh dibuka sekarang 💗';
+
+        heartReaction.classList.remove('show');
+
         setTimeout(() => {
             goTo('surprise');
         }, 1000);
-    } else {
-        feedback.innerText = 'Eitsss, belum tepat nihh. Coba pikirin lagi yaa 🤭';
-    }
 
+    } else {
+
+        wrongAttempts++;
+
+        heartReaction.classList.add('show');
+
+        heartReaction.classList.remove(
+            'level-1',
+            'level-2',
+            'level-3'
+        );
+
+        if (wrongAttempts === 1) {
+
+            heartReaction.classList.add('level-1');
+
+            heartIcon.innerHTML = `
+                ❤️
+                <span class="heart-crack one"></span>
+            `;
+
+            heartMessage.innerText =
+                'Aduhh, hati aku mulai retak sedikit... 💔';
+
+            feedback.innerText =
+                'Eitsss, belum tepat nihh. Coba lagi yaa 🤭';
+
+        } else if (wrongAttempts === 2) {
+
+            heartReaction.classList.add('level-2');
+
+            heartIcon.innerHTML = `
+                ❤️
+                <span class="heart-crack two"></span>
+                <span class="heart-crack three"></span>
+            `;
+
+            heartMessage.innerText =
+                'Yahh, retaknya makin besar... hati aku sakit 😭';
+
+            feedback.innerText =
+                'Masih salah sayangg, coba ingat-ingat lagi yaa 🥺';
+
+        } else {
+
+            heartReaction.classList.add('level-3');
+
+            heartIcon.innerHTML = '💔';
+
+            heartMessage.innerText =
+                'HANCURR... hati aku pecah gara-gara kamu 😭';
+
+            feedback.innerText =
+                'TIGA KALI SALAHH?! Ayo dong, kamu pasti tahu jawabannya 😭';
+        }
+    }
 }
 
 // SURPRISE
